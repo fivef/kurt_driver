@@ -14,8 +14,9 @@
   
   <include filename="$(find kurt_description)/parts/kurtana_rack.urdf.xacro" />
 
-  <property name="kinect_x_offset" value="0.018" />
-  <property name="kinect_z_offset" value="0.087" />
+  <property name="kinect_x_offset" value="0.03" />
+  <property name="kinect_y_offset" value="0.0" />
+  <property name="kinect_z_offset" value="0.018" />
 
 
   <!-- ************************ -->
@@ -26,9 +27,9 @@
   <xacro:kinect camera="kinect" />
 
   <joint name="kurtana_kinect_joint" type="fixed">
-    <parent link="kurtana_pitchpole_link" />
+    <parent link="kurtana_kinect_mounting_plate_link" />
     <child  link="kinect_link" />
-    <origin xyz="${kinect_x_offset} 0 ${kinect_z_offset}" rpy="0 0 0"/>
+    <origin xyz="${kinect_x_offset} ${kinect_y_offset} ${kinect_z_offset}" rpy="0 0 0"/>
   </joint>
 
 
@@ -49,20 +50,17 @@
   <!-- **************************** -->
   <!-- *** Neuronics Katana Arm *** -->
   <!-- **************************** -->
+  
+ <include filename="$(find katana_description)/urdf/katana_300_6m180.urdf.xacro" />
+  
+ <!-- send katana urdf to param server 
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find katana_description)/urdf/katana_300_6m180.urdf.xacro'" /> -->
 
-  <include filename="$(find katana_description)/urdf/katana_450_6m90a_with_controlbox.urdf.xacro" />
-
-  <link name="katana_pattern"></link>
-  <joint name="katana_pattern_joint" type="fixed">
-    <parent link="katana_motor4_lift_link"/>
-    <child  link="katana_pattern" />
-    <origin xyz=".075 -.035 0.00" rpy="1.571 -1.571 0.151"/>
+  <joint name="kurtana_baseplate_katana_baseplate_joint" type="fixed">
+    <parent link="katana_baseplate_link" />
+    <child link="katana_base_link" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
   </joint>
 
-  <joint name="kurtana_baseplate_controlbox_joint" type="fixed">
-    <parent link="kurtana_baseplate_link" />
-    <child link="katana_internal_controlbox_link" />
-    <origin xyz="0.05 0 ${baseplate_height*1.5}" rpy="0 0 0" />
-  </joint>
 
 </robot>
