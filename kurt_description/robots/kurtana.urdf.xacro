@@ -6,13 +6,13 @@
   <xacro:property name="top_y_offset" value="0.00" />
   <xacro:property name="base_z_offset" value="0.00" /> <!-- distance from base_link to top of cover surface -->
 
-  <include filename="$(find kurt_description)/bases/kurt_outdoor.urdf.xacro" />
+  <include filename="$(find p2os_urdf)/defs/pioneer3at.xacro" />
   <include filename="$(find kurt_description)/tops/kurtana_top.urdf.xacro" />
 
   <joint name="top_base_joint" type="fixed">
     <parent link="base_link" />
-    <child link="kurtana_rackplate_link" />
+    <child link="top_plate" />
     <origin xyz="0 ${top_y_offset} ${base_z_offset + rackplate_height/2}" />
-  </joint>
+  </joint>rosm
 
 </robot>
