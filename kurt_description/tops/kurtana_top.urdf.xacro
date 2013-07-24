@@ -14,9 +14,10 @@
   
   <include filename="$(find kurt_description)/parts/kurtana_rack.urdf.xacro" />
 
-  <property name="kinect_x_offset" value="0.03" />
+ <!-- these offsets shouldn't be used if the Kinect is on a PTU-->
+  <property name="kinect_x_offset" value="0.0" />
   <property name="kinect_y_offset" value="0.0" />
-  <property name="kinect_z_offset" value="0.018" />
+  <property name="kinect_z_offset" value="0.0" />
 
 
   <!-- ************************ -->
@@ -30,20 +31,6 @@
     <parent link="kurtana_kinect_mounting_plate_link" />
     <child  link="kinect_link" />
     <origin xyz="${kinect_x_offset} ${kinect_y_offset} ${kinect_z_offset}" rpy="0 0 0"/>
-  </joint>
-
-
-  <!-- ************************* -->
-  <!-- *** SICK TiM3xx laser *** -->
-  <!-- ************************* -->
-  
-  <include filename="$(find sick_tim3xx)/urdf/sick_tim3xx.urdf.xacro" />
-  <xacro:sick_tim3xx laser_link="laser" />
-
-  <joint name="kurtana_laser_joint" type="fixed">
-    <parent link="kurtana_baseplate_link" />
-    <child link="laser_mount_link" />
-    <origin xyz="${baseplate_length/2 - sick_tim3xx_length/2} 0 ${baseplate_height/2}" rpy="0 0 0" />
   </joint>
   
 
@@ -60,6 +47,14 @@
     <parent link="katana_baseplate_link" />
     <child link="katana_base_link" />
     <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  
+  <!-- pattern for Kinect calibration -->
+   <link name="katana_pattern"></link>
+  <joint name="katana_pattern_joint" type="fixed">
+    <parent link="katana_motor4_lift_link"/>
+    <child  link="katana_pattern" />
+    <origin xyz=".075 -.035 0.00" rpy="1.571 -1.571 0.151"/>
   </joint>
 
 
