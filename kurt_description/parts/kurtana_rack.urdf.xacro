@@ -25,11 +25,10 @@
   <property name="katana_baseplate_mass" value="0.4" />
  
   <property name="rackgap" value="0.055" />
-  <property name="pole_length" value="0.67"/>
-  <property name="pole_x_offset" value="-0.23"/>
+  <property name="pole_length" value="0.695"/>
+  <property name="pole_x_offset" value="-0.165"/>
   <property name="pole_mass" value="3.0"/>
 
-  
   <property name="square_bar_width" value="0.03"/>
   <property name="horizontal_square_bar_length" value="0.113"/>
   <property name="horizontal_square_bar_mass" value="0.1"/> 
@@ -66,33 +65,7 @@
   <!-- *** KURTana Rack *** -->
   <!-- ******************** -->
 
-  <!-- rackplate = lower plate-->
-  <link name="kurtana_rackplate_link">
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="${rackplate_length} ${rackplate_width} ${rackplate_height}" />
-      </geometry>
-
-      <material name="grey">
-        <color rgba="0.8 0.8 0.8 1"/>
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="${rackplate_length} ${rackplate_width} ${rackplate_height}" />
-      </geometry>
-    </collision>
-    <xacro:box_inertial x="${rackplate_length}" y="${rackplate_width}" z="${rackplate_height}" mass="${rackplate_mass}" />
-  </link>
-
   <!-- baseplate = upper plate -->
-  <joint name="kurtana_baseplate_joint" type="fixed">
-    <parent link="kurtana_rackplate_link"/>
-    <child link="kurtana_baseplate_link"/>
-    <origin xyz="0 0 ${rackplate_height/2 + rackgap + baseplate_height/2}"/>
-  </joint>
 
   <link name="kurtana_baseplate_link">
     <visual>
@@ -101,7 +74,9 @@
         <box size="${baseplate_length} ${baseplate_width} ${baseplate_height}" />
       </geometry>
 
-      <material name="grey" />
+      <material name="grey">
+        <color rgba="0.8 0.8 0.8 1"/>
+      </material>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -295,7 +270,7 @@
   <joint name="kurtana_pitch_joint" type="revolute">
     <parent link="kurtana_pitch_servo_link" />
     <child link="kurtana_pitch_servo_movable_part_link" />
-    <origin xyz="0 0 ${servo_axis_offset}" rpy="0 0 0"/>
+    <origin xyz="0 0 ${servo_axis_offset}" rpy="0 0.045 0"/>
     <axis xyz="0 1 0"/>
     <limit effort="1000.0" lower="${servo_pitch_lower_limit}" upper="${servo_pitch_upper_limit}" velocity="2.0"/>
   </joint>
